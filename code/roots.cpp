@@ -6,8 +6,7 @@
 #include <string>
 
 //Hello
-//Hello again
-
+//Hello again hello>
 using namespace std;
 
 vector<double> getCoefficients(string fileName);
