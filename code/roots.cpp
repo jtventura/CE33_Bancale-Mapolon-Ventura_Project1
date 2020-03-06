@@ -1,9 +1,9 @@
-#include <cstdlib>
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
+#include <complex>
 
 using namespace std;
 
@@ -13,7 +13,6 @@ void print_polynomial(vector<double> coefficients);
 int main(int argc, char *argv[])
 {
     string fileName;
-    //cout.precision(18);
 
     if (argc == 1)
     {
