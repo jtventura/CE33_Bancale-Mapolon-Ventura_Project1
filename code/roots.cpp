@@ -9,7 +9,7 @@ using namespace std;
 
 vector<double> getCoefficients(string fileName);
 
-//hello
+//hello world
 
 int main(int argc, char *argv[])
 {
