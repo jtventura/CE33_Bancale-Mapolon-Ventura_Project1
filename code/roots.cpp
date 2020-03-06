@@ -4,10 +4,12 @@
 #include <vector>
 #include <string>
 #include <complex>
+#include <tuple>
 
 using namespace std;
 
 vector<double> get_coefficients(string fileName);
+vector<complex<double>> bairnstow_method(vector<double> coefficients);
 void print_polynomial(vector<double> coefficients);
 
 int main(int argc, char *argv[])
@@ -74,6 +76,15 @@ vector<double> get_coefficients(string fileName)
     }
 
     return coefficients;
+}
+
+vector<complex<double>> bairnstow_method(vector<double> coefficients)
+{
+    double r = 0.5;
+    double s = -0.5;
+    double e = 0.01;
+
+    
 }
 
 void print_polynomial(vector<double> coefficients)
