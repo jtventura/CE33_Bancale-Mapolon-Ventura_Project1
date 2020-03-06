@@ -9,8 +9,6 @@ using namespace std;
 
 vector<double> getCoefficients(string fileName);
 
-//hello world WORLD
-
 int main(int argc, char *argv[])
 {
     string fileName;
