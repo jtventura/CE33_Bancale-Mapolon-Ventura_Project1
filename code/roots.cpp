@@ -7,8 +7,8 @@
 
 using namespace std;
 
-vector<double> getCoefficients(string fileName);
-void printPolynomial(vector<double> coefficients);
+vector<double> get_coefficients(string fileName);
+void print_polynomial(vector<double> coefficients);
 
 int main(int argc, char *argv[])
 {
@@ -25,14 +25,14 @@ int main(int argc, char *argv[])
         fileName = argv[1];
     }
 
-    vector<double> coefficients = getCoefficients(fileName);
+    vector<double> coefficients = get_coefficients(fileName);
 
-    printPolynomial(coefficients);
+    print_polynomial(coefficients);
 
     return 0;
 }
 
-vector<double> getCoefficients(string fileName)
+vector<double> get_coefficients(string fileName)
 {
     vector<double> terms;
     vector<double> coefficients;
@@ -77,7 +77,7 @@ vector<double> getCoefficients(string fileName)
     return coefficients;
 }
 
-void printPolynomial(vector<double> coefficients)
+void print_polynomial(vector<double> coefficients)
 {
     cout << "Polynomial:" << endl;
     for (int i = coefficients.size()-1; i >= 0; --i)
