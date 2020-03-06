@@ -11,6 +11,8 @@ using namespace std;
 vector<double> get_coefficients(string fileName);
 vector<complex<double>> bairnstow_method(vector<double> coefficients);
 void print_polynomial(vector<double> coefficients);
+void print_roots(vector<complex<double>> roots);
+void evaluation(vector<complex<double>> roots);
 
 int main(int argc, char *argv[])
 {
@@ -84,7 +86,7 @@ vector<complex<double>> bairnstow_method(vector<double> coefficients)
     double s = -0.5;
     double e = 0.01;
 
-    
+
 }
 
 void print_polynomial(vector<double> coefficients)
@@ -94,4 +96,14 @@ void print_polynomial(vector<double> coefficients)
     {
         cout << coefficients[i] << " x^" << i << endl;
     }
+}
+
+void print_roots(vector<complex<double>> roots)
+{
+    //
+}
+
+void evaluation(vector<complex<double>> roots)
+{
+    //
 }
