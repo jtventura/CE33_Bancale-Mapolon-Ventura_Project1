@@ -80,8 +80,8 @@ vector<double> getCoefficients(string fileName)
 void printPolynomial(vector<double> coefficients)
 {
     cout << "Polynomial:" << endl;
-    for (int i = coefficients.size(); i > 0; --i)
+    for (int i = coefficients.size()-1; i >= 0; --i)
     {
-        cout << coefficients[i-1] << " x^" << i-1 << endl;
+        cout << coefficients[i] << " x^" << i << endl;
     }
 }
