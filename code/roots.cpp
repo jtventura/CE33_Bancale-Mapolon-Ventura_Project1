@@ -12,7 +12,7 @@ vector<double> get_coefficients(string fileName);
 vector<complex<double>> bairnstow_method(vector<double> coefficients);
 void print_polynomial(vector<double> coefficients);
 void print_roots(vector<complex<double>> roots);
-void evaluation(vector<complex<double>> roots);
+void horner_method(vector<complex<double>> roots);
 
 int main(int argc, char *argv[])
 {
@@ -100,10 +100,10 @@ void print_polynomial(vector<double> coefficients)
 
 void print_roots(vector<complex<double>> roots)
 {
-    //
+    //test
 }
 
-void evaluation(vector<complex<double>> roots)
+void horner_method(vector<complex<double>> roots)
 {
     //
 }
