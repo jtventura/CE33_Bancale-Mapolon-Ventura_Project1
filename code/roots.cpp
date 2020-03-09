@@ -31,8 +31,16 @@ int main(int argc, char *argv[])
     vector<double> coefficients = get_coefficients(fileName);
 
     print_polynomial(coefficients);
-
-    horner_method(coefficients, 2);
+    cout << endl;
+    
+    cout << "Evaluating polynomial at identified roots:" << endl;
+    // test for p2.txt
+    vector<complex<double>> roots{(2,0),(-1,0),(1,0.5),(1,-0.5),(0.5,0)};
+    for (auto root: roots)
+    {
+        horner_method(coefficients, root);
+    }
+    
 
     return 0;
 }
@@ -106,9 +114,9 @@ void print_roots(vector<complex<double>> roots)
 
 void horner_method(vector<double> coefficients, complex<double> root)
 {
-    complex<double> eval = 0;
+    complex<double> eval(0,0);
 
-    for (int i = 0; i < coefficients.size(); i++)
+    for (int i = coefficients.size()-1; i >= 0; --i)
     {
         eval = eval * root + coefficients[i];
     }
@@ -116,5 +124,5 @@ void horner_method(vector<double> coefficients, complex<double> root)
     if (!(real(eval) && imag(eval)))
         cout << "f(" << real(root) << ", " << imag(root) << ") = " << "0" << endl;
     else
-        cout << "Not 0" << endl;
+        cout << "f(" << real(root) << ", " << imag(root) << ") = " << eval << endl;
 }
