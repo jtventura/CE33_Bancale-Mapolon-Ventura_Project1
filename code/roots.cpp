@@ -35,7 +35,18 @@ int main(int argc, char *argv[])
     
     cout << "Evaluating polynomial at identified roots:" << endl;
     // test for p2.txt
-    vector<complex<double>> roots{(2,0),(-1,0),(1,0.5),(1,-0.5),(0.5,0)};
+    vector<complex<double>> roots;
+    complex<double> r1(2,0);
+    complex<double> r2(-1,0);
+    complex<double> r3(1,0.5);
+    complex<double> r4(1,-0.5);
+    complex<double> r5(0.5,0);
+    roots.push_back(r1);
+    roots.push_back(r2);
+    roots.push_back(r3);
+    roots.push_back(r4);
+    roots.push_back(r5);
+
     for (auto root: roots)
     {
         horner_method(coefficients, root);
