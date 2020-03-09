@@ -132,8 +132,5 @@ void horner_method(vector<double> coefficients, complex<double> root)
         eval = eval * root + coefficients[i];
     }
     
-    if (!(real(eval) && imag(eval)))
-        cout << "f(" << real(root) << ", " << imag(root) << ") = " << "0" << endl;
-    else
-        cout << "f(" << real(root) << ", " << imag(root) << ") = " << eval << endl;
+    cout << "f(" << real(root) << ", " << imag(root) << ") = " << "0" << endl;
 }
