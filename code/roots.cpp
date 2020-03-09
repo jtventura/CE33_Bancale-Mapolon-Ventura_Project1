@@ -23,16 +23,14 @@ int main(int argc, char *argv[])
         cin >> fileName;
     }
     else
-    {
         fileName = argv[1];
-    }
 
     vector<double> coefficients = get_coefficients(fileName);
 
+    cout << "Polynomial:" << endl;
     print_polynomial(coefficients);
     cout << endl;
     
-    cout << "Evaluating polynomial at identified roots:" << endl;
     // test for p2.txt
     vector<complex<double>> roots;
     complex<double> r1(2,0);
@@ -46,12 +44,10 @@ int main(int argc, char *argv[])
     roots.push_back(r4);
     roots.push_back(r5);
 
+    cout << "Evaluating polynomial at identified roots:" << endl;
     for (auto root: roots)
-    {
         horner_method(coefficients, root);
-    }
     
-
     return 0;
 }
 
@@ -67,15 +63,11 @@ vector<double> get_coefficients(string fileName)
 
     file.open(fileName);
     if (!file.is_open())
-    {
         cout << "File " << fileName << " is not found in this directory." << endl;
-    }
     while (file.get(c))
     {
         if (!isspace(c))
-        {
             termStream << c;
-        }
         else
         {
             if (termStream.rdbuf()->in_avail())
@@ -85,17 +77,13 @@ vector<double> get_coefficients(string fileName)
                 termStream.clear();
             }
             else
-            {
                 termStream.clear();
-            }
         }  
     }
     file.close();
 
     for (int i = 1; i <= int(terms[0]) + 1; ++i)
-    {
         coefficients.push_back(terms[i]);
-    }
 
     return coefficients;
 }
@@ -110,16 +98,13 @@ vector<double> get_coefficients(string fileName)
 
 void print_polynomial(vector<double> coefficients)
 {
-    cout << "Polynomial:" << endl;
     for (int i = coefficients.size()-1; i >= 0; --i)
-    {
         cout << coefficients[i] << " x^" << i << endl;
-    }
 }
 
 void print_roots(vector<complex<double>> roots)
 {
-    //test
+    //
 }
 
 void horner_method(vector<double> coefficients, complex<double> root)
@@ -127,9 +112,10 @@ void horner_method(vector<double> coefficients, complex<double> root)
     complex<double> eval(0,0);
 
     for (int i = coefficients.size()-1; i >= 0; --i)
-    {
         eval = eval * root + coefficients[i];
-    }
     
-    cout << "f(" << real(root) << ", " << imag(root) << ") = " << "0" << endl;
+    if (!(real(eval) && imag(eval)))
+        cout << "f(" << real(root) << ", " << imag(root) << ") = " << abs(eval) << endl;
+    else
+        cout << "f(" << real(root) << ", " << imag(root) << ") = " << eval << endl;
 }
