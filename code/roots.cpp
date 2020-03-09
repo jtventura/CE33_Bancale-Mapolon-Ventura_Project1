@@ -88,13 +88,13 @@ vector<double> get_coefficients(string fileName)
     return coefficients;
 }
 
-// vector<complex<double>> bairstow_method(vector<double> coefficients)
-// {
-//     double r = 0.5;
-//     double s = -0.5;
-//     double e = 0.01;
+vector<complex<double>> bairstow_method(vector<double> coefficients)
+{
+    double r = coefficients[1]/coefficients[0];
+    double s = coefficients[2]/coefficients[0];
+    
 
-// }
+}
 
 void print_polynomial(vector<double> coefficients)
 {
@@ -118,4 +118,16 @@ void horner_method(vector<double> coefficients, complex<double> root)
         cout << "f(" << real(root) << ", " << imag(root) << ") = " << abs(eval) << endl;
     else
         cout << "f(" << real(root) << ", " << imag(root) << ") = " << eval << endl;
+}
+
+vector<complex<double>> quadratic_equation(vector<double> coefficients_2)
+{
+    vector<complex<double>> root;
+    complex<double> r1 = (coefficients_2[0] + sqrt(coefficients_2[0]+(4*coefficients_2[1])))/2;
+    complex<double> r2 = (coefficients_2[0] - sqrt(coefficients_2[0]+(4*coefficients_2[1])))/2;
+    
+    root.push_back(r1);
+    root.push_back(r2);
+    
+    return root;
 }
