@@ -98,7 +98,7 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
     double s = -coefficients[n-2]/coefficients[n];
     double e = 0.01;
 
-    
+
 }
 
 void print_polynomial(vector<double> coefficients)
