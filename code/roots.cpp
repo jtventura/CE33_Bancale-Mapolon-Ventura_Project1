@@ -1,19 +1,22 @@
-#include <cstdlib>
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
+#include <complex>
+#include <tuple>
 
 using namespace std;
 
 vector<double> get_coefficients(string fileName);
+vector<complex<double>> bairnstow_method(vector<double> coefficients);
 void print_polynomial(vector<double> coefficients);
+void print_roots(vector<complex<double>> roots);
+void horner_method(vector<double> coefficients, complex<double> root);
 
 int main(int argc, char *argv[])
 {
     string fileName;
-    //cout.precision(18);
 
     if (argc == 1)
     {
@@ -28,6 +31,8 @@ int main(int argc, char *argv[])
     vector<double> coefficients = get_coefficients(fileName);
 
     print_polynomial(coefficients);
+
+    horner_method(coefficients, 2);
 
     return 0;
 }
@@ -77,6 +82,14 @@ vector<double> get_coefficients(string fileName)
     return coefficients;
 }
 
+// vector<complex<double>> bairnstow_method(vector<double> coefficients)
+// {
+//     double r = 0.5;
+//     double s = -0.5;
+//     double e = 0.01;
+
+// }
+
 void print_polynomial(vector<double> coefficients)
 {
     cout << "Polynomial:" << endl;
@@ -84,4 +97,24 @@ void print_polynomial(vector<double> coefficients)
     {
         cout << coefficients[i] << " x^" << i << endl;
     }
+}
+
+void print_roots(vector<complex<double>> roots)
+{
+    //test
+}
+
+void horner_method(vector<double> coefficients, complex<double> root)
+{
+    complex<double> eval = 0;
+
+    for (int i = 0; i < coefficients.size(); i++)
+    {
+        eval = eval * root + coefficients[i];
+    }
+    
+    if (!(real(eval) && imag(eval)))
+        cout << "f(" << real(root) << ", " << imag(root) << ") = " << "0" << endl;
+    else
+        cout << "Not 0" << endl;
 }
