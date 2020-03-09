@@ -9,7 +9,7 @@
 using namespace std;
 
 vector<double> get_coefficients(string fileName);
-vector<complex<double>> bairnstow_method(vector<double> coefficients);
+vector<complex<double>> bairstow_method(vector<double> coefficients);
 void print_polynomial(vector<double> coefficients);
 void print_roots(vector<complex<double>> roots);
 void horner_method(vector<double> coefficients, complex<double> root);
@@ -82,7 +82,7 @@ vector<double> get_coefficients(string fileName)
     return coefficients;
 }
 
-// vector<complex<double>> bairnstow_method(vector<double> coefficients)
+// vector<complex<double>> bairstow_method(vector<double> coefficients)
 // {
 //     double r = 0.5;
 //     double s = -0.5;
