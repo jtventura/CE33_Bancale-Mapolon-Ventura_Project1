@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
     cout << endl;
     
     vector<complex<double>> roots = bairstow_method(coefficients);
+    // vector<complex<double>> roots;
     // complex<double> r1(2,0);
     // complex<double> r2(-1,0);
     // complex<double> r3(1,0.5);
@@ -43,8 +44,8 @@ int main(int argc, char *argv[])
     // roots.push_back(r4);
     // roots.push_back(r5);
     cout << "Roots:" << endl;
-    // print_roots(roots);
-    // cout << endl;
+    print_roots(roots);
+    cout << endl;
 
     cout << "Evaluating polynomial at identified roots:" << endl;
     for (auto root: roots)
