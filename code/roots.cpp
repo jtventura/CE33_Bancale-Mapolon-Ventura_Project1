@@ -27,23 +27,11 @@ int main(int argc, char *argv[])
         fileName = argv[1];
 
     vector<double> coefficients = get_coefficients(fileName);
-
     cout << "Polynomial:" << endl;
     print_polynomial(coefficients);
     cout << endl;
     
     vector<complex<double>> roots = bairstow_method(coefficients);
-    // vector<complex<double>> roots;
-    // complex<double> r1(2,0);
-    // complex<double> r2(-1,0);
-    // complex<double> r3(1,0.5);
-    // complex<double> r4(1,-0.5);
-    // complex<double> r5(0.5,0);
-    // roots.push_back(r1);
-    // roots.push_back(r2);
-    // roots.push_back(r3);
-    // roots.push_back(r4);
-    // roots.push_back(r5);
     cout << "Roots:" << endl;
     print_roots(roots);
     cout << endl;
@@ -95,15 +83,62 @@ vector<double> get_coefficients(string fileName)
 vector<complex<double>> bairstow_method(vector<double> coefficients)
 {
     vector<complex<double>> roots;
-
-    int n = coefficients.size() - 1;
+    int n = coefficients.size() - 1; //degree of the polynomial
     double r = -coefficients[n-1]/coefficients[n];
     double s = -coefficients[n-2]/coefficients[n];
     double e = 1e-6;
+    double dr, ds, er, es;
+    int iter = 1;
+ 
+    vector<double> b(n+1, 0), c(n+1, 0);
 
-    while (1)
+    while (iter)
     {
+        b[n] = coefficients[n];
+        b[n-1] = coefficients[n-1] + b[n]*r;
 
+        for (int i = n-2; i >= 0; --i)
+            b[i] = coefficients[i] + b[i+1]*r + b[i+2]*s;
+
+        c[n] = b[n];
+        c[n-1] = b[n-1] + c[n]*r;
+        
+        for (int i = n-2; i >= 1; --i)
+            c[i] = b[i] + c[i+1]*r + c[i+2]*s;
+
+        
+        dr = (b[0]*c[3] - b[1]*c[2]) / (c[2]*c[2] - c[1]*c[3]);
+        ds = (b[1]*c[1] - b[0]*c[2]) / (c[2]*c[2] - c[1]*c[3]);
+
+        r = r + dr;
+        s = s + ds;
+
+        er = abs(dr / r) * 100;
+        es = abs(ds / s) * 100;
+
+        if (er < e && es < e)
+        {
+            for (auto root: quadratic_equation(r, s))
+                roots.push_back(root);
+            break;
+        }
+        ++iter;
+    }
+
+    if (n - 2 > 2)
+    {
+        b.erase(b.begin(), b.begin() + 2);
+        for (auto root: bairstow_method(b))
+            roots.push_back(root);
+    }
+    else if (n - 2 == 2)
+    {
+        for (auto root: quadratic_equation(r, s))
+            roots.push_back(root);
+    }
+    else if (n - 2 == 1)
+    {
+        roots.push_back(-b[n-1] / b[n]);
     }
 
     return roots;
@@ -112,12 +147,30 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
 vector<complex<double>> quadratic_equation(double r, double s)
 {
     vector<complex<double>> quad_roots;
+    double discriminant;
+    complex<double> x1, x2;
 
-    complex<double> root_1 = (r + sqrt(r + 4*s)) / 2;
-    complex<double> root_2 = (r - sqrt(r + 4*s)) / 2;
+    discriminant = r*r + 4*s;
 
-    quad_roots.push_back(root_1);
-    quad_roots.push_back(root_2);
+    if (discriminant > 0)
+    {
+        x1 = (r + sqrt(discriminant)) / 2;
+        x2 = (r - sqrt(discriminant)) / 2;
+        quad_roots.push_back(x1);
+        quad_roots.push_back(x2);
+    }
+    else if (discriminant == 0)
+    {
+        x1 = (r + sqrt(discriminant)) / 2;
+        quad_roots.push_back(x1);
+    }
+    else 
+    {
+        complex<double> cx1(r / 2, sqrt(-discriminant) / 2);
+        complex<double> cx2(r / 2, -sqrt(-discriminant) / 2);
+        quad_roots.push_back(cx1);
+        quad_roots.push_back(cx2);      
+    }
 
     return quad_roots;
 }
