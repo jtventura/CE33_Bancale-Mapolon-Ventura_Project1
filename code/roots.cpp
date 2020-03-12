@@ -83,7 +83,7 @@ vector<double> get_coefficients(string fileName)
 vector<complex<double>> bairstow_method(vector<double> coefficients)
 {
     vector<complex<double>> roots;
-    int n = coefficients.size() - 1; //degree of the polynomial
+    int n = coefficients.size() - 1;
     double r = -coefficients[n-1]/coefficients[n];
     double s = -coefficients[n-2]/coefficients[n];
     double e = 1e-6;
