@@ -84,8 +84,10 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
 {
     vector<complex<double>> roots;
     int n = coefficients.size() - 1;
-    double r = -coefficients[n-1]/coefficients[n];
-    double s = -coefficients[n-2]/coefficients[n];
+    // double r = -coefficients[n-1]/coefficients[n];
+    // double s = -coefficients[n-2]/coefficients[n];
+    double r = 0.5;
+    double s = 0.5;
     double e = 1e-6;
     double dr, ds, er, es;
     int iter = 1;
