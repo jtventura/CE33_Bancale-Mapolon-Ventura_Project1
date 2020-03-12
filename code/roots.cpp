@@ -9,6 +9,7 @@ using namespace std;
 
 vector<double> get_coefficients(string fileName);
 vector<complex<double>> bairstow_method(vector<double> coefficients);
+vector<complex<double>> quadratic_equation(double r, double s);
 void print_polynomial(vector<double> coefficients);
 void print_roots(vector<complex<double>> roots);
 void horner_method(vector<double> coefficients, complex<double> root);
@@ -93,13 +94,32 @@ vector<double> get_coefficients(string fileName)
 
 vector<complex<double>> bairstow_method(vector<double> coefficients)
 {
-    int deg = coefficients.size();
+    vector<complex<double>> roots;
+
     int n = coefficients.size() - 1;
     double r = -coefficients[n-1]/coefficients[n];
     double s = -coefficients[n-2]/coefficients[n];
-    double e = 0.01;
+    double e = 1e-6;
 
+    while (1)
+    {
 
+    }
+
+    return roots;
+}
+
+vector<complex<double>> quadratic_equation(double r, double s)
+{
+    vector<complex<double>> quad_roots;
+
+    complex<double> root_1 = (r + sqrt(r + 4*s)) / 2;
+    complex<double> root_2 = (r - sqrt(r + 4*s)) / 2;
+
+    quad_roots.push_back(root_1);
+    quad_roots.push_back(root_2);
+
+    return quad_roots;
 }
 
 void print_polynomial(vector<double> coefficients)
