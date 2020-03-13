@@ -84,8 +84,6 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
 {
     vector<complex<double>> roots;
     int n = coefficients.size() - 1;
-    // double r = -coefficients[n-1]/coefficients[n];
-    // double s = -coefficients[n-2]/coefficients[n];
     double r = 0.5;
     double s = 0.5;
     double e = 1e-6;
@@ -108,7 +106,6 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
         for (int i = n-2; i >= 1; --i)
             c[i] = b[i] + c[i+1]*r + c[i+2]*s;
 
-        
         dr = (b[0]*c[3] - b[1]*c[2]) / (c[2]*c[2] - c[1]*c[3]);
         ds = (b[1]*c[1] - b[0]*c[2]) / (c[2]*c[2] - c[1]*c[3]);
 
@@ -118,6 +115,13 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
         er = abs(dr / r) * 100;
         es = abs(ds / s) * 100;
 
+        for (auto x: b)
+            cout << x << " ";
+        cout << endl;
+        
+        if (iter)
+            break;
+
         if (er < e && es < e)
         {
             for (auto root: quadratic_equation(r, s))
@@ -126,19 +130,19 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
         }
         ++iter;
     }
-
-    if (n-2 > 2)
+    
+    if (n > 4)
     {
         b.erase(b.begin(), b.begin() + 2);
         for (auto root: bairstow_method(b))
             roots.push_back(root);
     }
-    else if (n-2 == 2)
+    else if (n == 4)
     {
-        for (auto root: quadratic_equation(r, s))
+        for (auto root: quadratic_equation(-b[n-1], -b[n-2]))
             roots.push_back(root);
     }
-    else if (n-2 == 1)
+    else if (n == 3)
     {
         roots.push_back(-b[n-1] / b[n]);
     }
@@ -149,10 +153,9 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
 vector<complex<double>> quadratic_equation(double r, double s)
 {
     vector<complex<double>> quad_roots;
-    double discriminant;
     complex<double> x1, x2;
 
-    discriminant = r*r + 4*s;
+    double discriminant = r*r + 4*s;
 
     if (discriminant > 0)
     {
