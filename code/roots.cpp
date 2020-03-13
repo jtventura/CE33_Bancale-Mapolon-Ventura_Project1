@@ -131,18 +131,18 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
         ++iter;
     }
     
-    if (n > 4)
+    if (n-2 > 2)
     {
         b.erase(b.begin(), b.begin() + 2);
         for (auto root: bairstow_method(b))
             roots.push_back(root);
     }
-    else if (n == 4)
+    else if (n-2 == 2)
     {
         for (auto root: quadratic_equation(-b[n-1], -b[n-2]))
             roots.push_back(root);
     }
-    else if (n == 3)
+    else if (n-2 == 1)
     {
         roots.push_back(-b[n-1] / b[n]);
     }
