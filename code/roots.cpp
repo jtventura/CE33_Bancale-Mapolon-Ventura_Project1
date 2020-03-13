@@ -91,7 +91,13 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
     int iter = 1;
  
     vector<double> b(n+1, 0), c(n+1, 0);
-
+    
+    if (n == 1)
+    {
+        roots.push_back(-coefficients[0]/coefficients[1]);
+        return roots;
+    }
+    
     while (iter)
     {
         b[n] = coefficients[n];
@@ -114,13 +120,6 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
 
         er = abs(dr / r) * 100;
         es = abs(ds / s) * 100;
-
-        for (auto x: b)
-            cout << x << " ";
-        cout << endl;
-        
-        if (iter)
-            break;
 
         if (er < e && es < e)
         {
