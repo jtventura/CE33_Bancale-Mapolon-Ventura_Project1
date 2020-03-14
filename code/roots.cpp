@@ -16,7 +16,7 @@ void horner_method(vector<double> coefficients, complex<double> root);
 
 int main(int argc, char *argv[])
 {
-  cout.precision(6);
+  cout.precision(10);
   cout << fixed;
 
   string fileName;
@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
   for (auto root : roots)
     horner_method(coefficients, root);
 
+  system("pause");
   return 0;
 }
 
