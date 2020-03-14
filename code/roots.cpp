@@ -4,11 +4,12 @@
 #include <vector>
 #include <string>
 #include <complex>
+#include <algorithm>
 
 using namespace std;
 
 vector<double> get_coefficients(string fileName);
-vector<complex<double>> bairstow_method(vector<double> coefficients, int degree);
+vector<complex<double>> bairstow_method(vector<double> coefficients);
 vector<complex<double>> quadratic_equation(double r, double s);
 void print_polynomial(vector<double> coefficients);
 void print_roots(vector<complex<double>> roots);
@@ -16,7 +17,7 @@ void horner_method(vector<double> coefficients, complex<double> root);
 
 int main(int argc, char *argv[])
 {
-  cout.precision(10);
+  cout.precision(6);
   cout << fixed;
 
   string fileName;
@@ -34,7 +35,7 @@ int main(int argc, char *argv[])
   print_polynomial(coefficients);
   cout << endl;
 
-  vector<complex<double>> roots = bairstow_method(coefficients, coefficients.size());
+  vector<complex<double>> roots = bairstow_method(coefficients);
   cout << "Roots:" << endl;
   print_roots(roots);
   cout << endl;
@@ -83,10 +84,11 @@ vector<double> get_coefficients(string fileName)
   return coefficients;
 }
 
-vector<complex<double>> bairstow_method(vector<double> coefficients, int degree)
+vector<complex<double>> bairstow_method(vector<double> coefficients)
 {
   vector<complex<double>> roots;
   int n = coefficients.size() - 1;
+  double max = *max_element(coefficients.begin(), coefficients.end());
   double r;
   double s;
   double e = 1e-6;
@@ -101,7 +103,7 @@ vector<complex<double>> bairstow_method(vector<double> coefficients, int degree)
     return roots;
   }
 
-  if (degree > 15)
+  if (max > 1e3)
   {
     r = 0;
     s = 0;
@@ -111,7 +113,6 @@ vector<complex<double>> bairstow_method(vector<double> coefficients, int degree)
     r = 0.5;
     s = 0.5;
   }
-  
 
   while (iter)
   {
@@ -149,7 +150,7 @@ vector<complex<double>> bairstow_method(vector<double> coefficients, int degree)
   if (n - 2 > 2)
   {
     b.erase(b.begin(), b.begin() + 2);
-    for (auto root : bairstow_method(b, degree))
+    for (auto root : bairstow_method(b))
       roots.push_back(root);
   }
   else if (n - 2 == 2)
