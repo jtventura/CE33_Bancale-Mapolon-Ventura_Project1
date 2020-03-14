@@ -17,6 +17,8 @@ void horner_method(vector<double> coefficients, complex<double> root);
 int main(int argc, char *argv[])
 {
     string fileName;
+    cout.precision(6);
+    cout << fixed;
 
     if (argc == 1)
     {
@@ -198,8 +200,5 @@ void horner_method(vector<double> coefficients, complex<double> root)
     for (int i = coefficients.size()-1; i >= 0; --i)
         eval = eval * root + coefficients[i];
     
-    if (!(real(eval) && imag(eval)))
-        cout << "f(" << real(root) << ", " << imag(root) << ") = " << abs(eval) << endl;
-    else
-        cout << "f(" << real(root) << ", " << imag(root) << ") = " << eval << endl;
+    cout << "f(" << real(root) << ", " << imag(root) << ") = " << abs(eval) << endl;
 }
