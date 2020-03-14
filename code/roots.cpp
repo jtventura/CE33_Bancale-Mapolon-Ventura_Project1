@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
   for (auto root : roots)
     horner_method(coefficients, root);
 
-  //system("pause");
+  system("pause");
   return 0;
 }
 
