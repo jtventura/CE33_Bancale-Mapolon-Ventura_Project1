@@ -16,9 +16,10 @@ void horner_method(vector<double> coefficients, complex<double> root);
 
 int main(int argc, char *argv[])
 {
-    string fileName;
     cout.precision(6);
     cout << fixed;
+
+    string fileName;
 
     if (argc == 1)
     {
