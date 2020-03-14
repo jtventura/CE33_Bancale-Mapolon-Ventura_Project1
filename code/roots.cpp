@@ -71,8 +71,6 @@ vector<double> get_coefficients(string fileName)
                 terms.push_back(term);
                 termStream.clear();
             }
-            else
-                termStream.clear();
         }  
     }
     file.close();
