@@ -8,7 +8,7 @@
 using namespace std;
 
 vector<double> get_coefficients(string fileName);
-vector<complex<double>> bairstow_method(vector<double> coefficients);
+vector<complex<double>> bairstow_method(vector<double> coefficients, int degree);
 vector<complex<double>> quadratic_equation(double r, double s);
 void print_polynomial(vector<double> coefficients);
 void print_roots(vector<complex<double>> roots);
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
   print_polynomial(coefficients);
   cout << endl;
 
-  vector<complex<double>> roots = bairstow_method(coefficients);
+  vector<complex<double>> roots = bairstow_method(coefficients, coefficients.size());
   cout << "Roots:" << endl;
   print_roots(roots);
   cout << endl;
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
   for (auto root : roots)
     horner_method(coefficients, root);
 
-  system("pause");
+  //system("pause");
   return 0;
 }
 
@@ -83,12 +83,12 @@ vector<double> get_coefficients(string fileName)
   return coefficients;
 }
 
-vector<complex<double>> bairstow_method(vector<double> coefficients)
+vector<complex<double>> bairstow_method(vector<double> coefficients, int degree)
 {
   vector<complex<double>> roots;
   int n = coefficients.size() - 1;
-  double r = 0.5;
-  double s = 0.5;
+  double r;
+  double s;
   double e = 1e-6;
   double dr, ds, er, es;
   int iter = 1;
@@ -100,6 +100,18 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
     roots.push_back(-coefficients[0] / coefficients[1]);
     return roots;
   }
+
+  if (degree > 15)
+  {
+    r = 0;
+    s = 0;
+  }
+  else
+  {
+    r = 0.5;
+    s = 0.5;
+  }
+  
 
   while (iter)
   {
@@ -124,19 +136,20 @@ vector<complex<double>> bairstow_method(vector<double> coefficients)
     er = abs(dr / r) * 100;
     es = abs(ds / s) * 100;
 
-    if (er < e && es < e)
+    if (er < e || es < e)
     {
       for (auto root : quadratic_equation(r, s))
         roots.push_back(root);
       break;
     }
+    
     ++iter;
   }
 
   if (n - 2 > 2)
   {
     b.erase(b.begin(), b.begin() + 2);
-    for (auto root : bairstow_method(b))
+    for (auto root : bairstow_method(b, degree))
       roots.push_back(root);
   }
   else if (n - 2 == 2)
@@ -191,7 +204,7 @@ void print_polynomial(vector<double> coefficients)
 void print_roots(vector<complex<double>> roots)
 {
   for (auto root : roots)
-    cout << root << endl;
+    cout << "(" << real(root) << ", " << imag(root) << ")" << endl;
 }
 
 void horner_method(vector<double> coefficients, complex<double> root)
